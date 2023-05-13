@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+  db:
+    build: ./docker_db
+    container_name: test-db
+    environment:
+      TZ: Asia/Tokyo
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: moneyroom
+    ports:
+      - '13306:3306'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    # for M1 Mac
+    platform: linux/x86_64
